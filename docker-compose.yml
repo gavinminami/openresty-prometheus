@@ -1,0 +1,14 @@
+version: "3.9" # optional since v1.27.0
+services:
+  openresty:
+    build: ./openresty
+    ports:
+      - "80:80"
+      - "9145:9145"
+  prometheus:
+    build: ./prometheus
+    # image: prom/prometheus
+    ports:
+      - "9090:9090"
+    links:
+      - "openresty"
