@@ -12,3 +12,9 @@ services:
       - "9090:9090"
     links:
       - "openresty"
+  grafana:
+    image: grafana/grafana-oss:8.2.6
+    ports:
+      - 3000:3000
+    links:
+      - "prometheus"
