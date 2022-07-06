@@ -1,0 +1,22 @@
+{
+  "name": "example-service",
+  "version": "1.0.0",
+  "description": "Test service",
+  "main": "lib/index.js",
+  "scripts": {
+    "start:local": "ENV_FILE=./config/local.env ts-node src/index.ts",
+    "start": "NODE_ENV=production node lib/index.js",
+    "prepare": "tsc --project ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.0.2",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

@@ -1,10 +1,17 @@
 version: "3.9" # optional since v1.27.0
 services:
+  example:
+    build: ./example-service
+    ports:
+      - "4000:4000"
   openresty:
     build: ./openresty
     ports:
       - "80:80"
+      - "8080:8080"
       - "9145:9145"
+    links:
+      - "example"
   prometheus:
     build: ./prometheus
     # image: prom/prometheus
