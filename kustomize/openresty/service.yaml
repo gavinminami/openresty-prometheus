@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: openresty
+spec:
+  type: LoadBalancer
+  selector:
+    app: openresty
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
