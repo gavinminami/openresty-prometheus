@@ -1,4 +1,4 @@
-import { counter, gauge, histogram, register } from "./metrics"
+import { counter, gauge, histogram, writeMetrics } from "./metrics"
 
 const express = require('express')
 const app = express()
@@ -18,32 +18,28 @@ app.get('/test', (req, res) => {
 })
 
 // Example response:
-// # HELP metric_name metric_help
-// # TYPE metric_name counter
-// metric_name{code="200"} 1
-
+// # HELP counter_metric_name counter_metric_help
+// # TYPE counter_metric_name counter
+// counter_metric_name{code="200"} 2
+//
 // # HELP hist_metric_name hist_metric_help
 // # TYPE hist_metric_name histogram
-// hist_metric_name_bucket{le="0.1"} 1
-// hist_metric_name_bucket{le="5"} 1
-// hist_metric_name_bucket{le="15"} 1
-// hist_metric_name_bucket{le="50"} 1
-// hist_metric_name_bucket{le="100"} 1
-// hist_metric_name_bucket{le="500"} 1
-// hist_metric_name_bucket{le="+Inf"} 1
-// hist_metric_name_sum 0.00024175
-// hist_metric_name_count 1
-
+// hist_metric_name_bucket{le="0.1"} 2
+// hist_metric_name_bucket{le="5"} 2
+// hist_metric_name_bucket{le="15"} 2
+// hist_metric_name_bucket{le="50"} 2
+// hist_metric_name_bucket{le="100"} 2
+// hist_metric_name_bucket{le="500"} 2
+// hist_metric_name_bucket{le="+Inf"} 2
+// hist_metric_name_sum 0.000293875
+// hist_metric_name_count 2
+//
 // # HELP gauge_metric_name metric_help
 // # TYPE gauge_metric_name gauge
 // gauge_metric_name 10
 app.get('/metrics', async (req, res) => {
     try {
-        const metrics = await register.metrics()
-
-        console.log(metrics)
-        res.set('Content-Type', register.contentType);
-        res.end(metrics);
+        writeMetrics(res);
     } catch (ex) {
         res.status(500).end(ex);
     }
